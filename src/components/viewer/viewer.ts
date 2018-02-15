@@ -3,6 +3,7 @@ import bContainer from 'bootstrap-vue/es/components/layout/container'
 import bCol from 'bootstrap-vue/es/components/layout/col'
 import bRow from 'bootstrap-vue/es/components/layout/row'
 import { Video, VideoProvider } from './video'
+import { VideoViewComponent } from './video-view/video-view'
 import { createVideoFromQuery } from './util/query-parser'
 
 @Component({
@@ -10,7 +11,8 @@ import { createVideoFromQuery } from './util/query-parser'
   components: {
     'b-container': bContainer,
     'b-col': bCol,
-    'b-row': bRow
+    'b-row': bRow,
+    'video-view': VideoViewComponent
   }
 })
 export class ViewerComponent extends Vue {
@@ -28,9 +30,9 @@ export class ViewerComponent extends Vue {
   private parseQuery (): boolean {
     const videoQueries: any = this.$route.query['v']
     /* this.$route.query[] returns either:
-        string if there are one 'v' query parameter
-        string array if there are multiple 'v' query parameters
-        undefined if there are no 'v' query parameters
+        string`: if there are one 'v' query parameter
+        string array: if there are multiple 'v' query parameters
+        undefined: if there are no 'v' query parameters
     */
     try {
       if (videoQueries instanceof Array) {
