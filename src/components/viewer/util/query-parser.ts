@@ -34,9 +34,11 @@ function validateId (video: Video) {
   if (!video.id) {
     throw new TypeError('Video id missing')
   }
-  if (video.id === '') {
+  if (video.id === '' || video.id.trim() === '') {
     throw new RangeError('Video id is empty')
   }
+
+  video.id = video.id.trim()
   // TODO: Possibly validate the video id with the provider
 }
 
