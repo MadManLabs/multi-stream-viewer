@@ -3,38 +3,53 @@ import { expect } from 'chai'
 import { createVideoFromQuery } from './query-parser'
 
 describe('Query parser', () => {
-  it('should create correct Video object', function () {
-    const query = 'provider:yt,id:FgzxNo15T-0,timestamp:1.96,muted:!f'
-    const video = createVideoFromQuery(query)
-    expect(video.provider).to.equal('yt')
-    expect(video.id).to.equal('FgzxNo15T-0')
-    expect(video.timestamp).to.equal(1.96)
-    expect(video.muted).to.equal(false)
+  describe('General', () => {
+    it('should throw unknown provider', function () {
+      const query = 'provider:vi,id:bVQogFuMq7c'
+      expect(() => createVideoFromQuery(query)).to.throw(RangeError, 'Unknown video provider indicated')
+    }),
+
+    it('should throw missing provider', function () {
+      const query = 'id:FgzxNo15T-0,timestamp:1.96'
+      expect(() => createVideoFromQuery(query)).to.throw(TypeError, 'Video provider missing')
+    }),
+
+    it('should throw empty id', function () {
+      const query = 'provider:yt,id:\'  \',timestamp:1.96'
+      expect(() => createVideoFromQuery(query)).to.throw(RangeError, 'Video id is empty')
+    }),
+
+    it('should throw missing id', function () {
+      const query = 'provider:yt,timestamp:1.96'
+      expect(() => createVideoFromQuery(query)).to.throw(TypeError, 'Video id missing')
+    }),
+
+    it('should throw error for ilformed query', function () {
+      const query = 'provider:yt,timestamp:1.96,muted:!1'
+      expect(() => createVideoFromQuery(query)).to.throw(Error)
+    })
   }),
 
-  it('should throw unknown provider', function () {
-    const query = 'provider:vi,id:bVQogFuMq7c'
-    expect(() => createVideoFromQuery(query)).to.throw(RangeError, 'Unknown video provider indicated')
+  describe('Youtube', () => {
+    it('should create correct Video object', function () {
+      const query = 'provider:yt,id:FgzxNo15T-0,timestamp:1.96,muted:!f'
+      const video = createVideoFromQuery(query)
+      expect(video.provider).to.equal('yt')
+      expect(video.id).to.equal('FgzxNo15T-0')
+      expect(video.timestamp).to.equal(1.96)
+      expect(video.muted).to.equal(false)
+    })
   }),
 
-  it('should throw missing provider', function () {
-    const query = 'id:FgzxNo15T-0,timestamp:1.96'
-    expect(() => createVideoFromQuery(query)).to.throw(TypeError, 'Video provider missing')
-  }),
-
-  it('should throw empty id', function () {
-    const query = 'provider:yt,id:\'  \',timestamp:1.96'
-    expect(() => createVideoFromQuery(query)).to.throw(RangeError, 'Video id is empty')
-  }),
-
-  it('should throw missing id', function () {
-    const query = 'provider:yt,timestamp:1.96'
-    expect(() => createVideoFromQuery(query)).to.throw(TypeError, 'Video id missing')
-  }),
-
-  it('should throw error for ilformed query', function () {
-    const query = 'provider:yt,timestamp:1.96,muted:!1'
-    expect(() => createVideoFromQuery(query)).to.throw(Error)
+  describe('Twitch', () => {
+    it('should create correct Video object', function () {
+      const query = 'provider:tw,id:228706076,muted:!t'
+      const video = createVideoFromQuery(query)
+      expect(video.provider).to.equal('tw')
+      expect(video.id).to.equal('228706076')
+      expect(video.timestamp).to.equal(0)
+      expect(video.muted).to.equal(true)
+    })
   })
 })
 

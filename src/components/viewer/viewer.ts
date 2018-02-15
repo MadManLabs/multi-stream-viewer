@@ -61,8 +61,10 @@ export class ViewerComponent extends Vue {
 }
 
 // http://viewsync.net/watch?v=FgzxNo15T-0&t=1.96&v=bVQogFuMq7c&t=0.29&autoplay=false
+// https://www.twitch.tv/videos/228706241 - austin
+// https://www.twitch.tv/videos/228706076 - rob
 
-// http://localhost:8080/viewer?v=provider:yt,id:FgzxNo15T-0,timestamp:1.96&v=provider:yt,id:bVQogFuMq7c,timestamp:0.29,muted:!t
+// http://localhost:8080/viewer?v=provider:yt,id:FgzxNo15T-0,timestamp:1.96&v=provider:yt,id:bVQogFuMq7c,timestamp:0.29,muted:!t&v=provider:tw,id:228706241,muted:!t&v=provider:tw,id:228706076,muted:!t
 
 // Failing test urls
 // unknown provider: http://localhost:8080/viewer?v=provider:yt,id:FgzxNo15T-0,timestamp:1.96&v=provider:vi,id:bVQogFuMq7c

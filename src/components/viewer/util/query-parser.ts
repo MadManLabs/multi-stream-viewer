@@ -8,8 +8,10 @@ import { Video, VideoProvider } from '../video'
  * @throws An error is thrown if the function fails to create a valid Video object from the query
  */
 export function createVideoFromQuery (query: string): Video {
-  const video: Video = rison.decode_object(query) // may throw an error if the query is not valid ORison
-
+  const obj: any = rison.decode_object(query) // may throw an error if the query is not valid ORison
+  // obj.provider = obj.provider.toString()
+  // obj.id = obj.id.toString()
+  const video: Video = obj
   // Validate that the query was parsed into a correct Video object
   validateProvider(video)
   validateId(video)
@@ -34,6 +36,9 @@ function validateId (video: Video) {
   if (!video.id) {
     throw new TypeError('Video id missing')
   }
+
+  video.id = video.id.toString()
+
   if (video.id === '' || video.id.trim() === '') {
     throw new RangeError('Video id is empty')
   }
