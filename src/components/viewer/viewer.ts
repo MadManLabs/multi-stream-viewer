@@ -5,6 +5,7 @@ import bRow from 'bootstrap-vue/es/components/layout/row'
 import { Video, VideoProvider } from './video'
 import { VideoViewComponent } from './video-view/video-view'
 import { createVideoFromQuery } from './util/query-parser'
+import * as providers from './providers/providers'
 
 @Component({
   template: require('./viewer.html'),
@@ -20,6 +21,8 @@ export class ViewerComponent extends Vue {
   videos: Array<Video> = []
 
   mounted () {
+    providers.VideoProviders.forEach(provider => provider.setup())
+
     if (this.parseQuery()) {
       this.testMessage = 'Successfully parsed URL query'
     } else {
