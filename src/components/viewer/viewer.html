@@ -5,10 +5,6 @@
                 <strong>This is the viewer page</strong>
             </h1>
             <p>{{testMessage}}</p>
-            <p>Query hello: {{queryMsg}}</p>
-            <div v-for="hello in $route.query['hello']">
-                <p>{{hello}}</p>
-            </div>
             <div v-for="video in videos">
                 <p>{{video}}</p>
             </div>
