@@ -51,7 +51,7 @@ export class YoutubeProvider implements IVideoProvider {
       videoId: video.id,
       playerVars: {
         enablejsapi: 1,
-        origin: window.location.toString() // TODO: Check if this is correct and proper usage
+        origin: window.location.href // TODO: Check if this is correct and proper usage
       }
       // events: {
       //   'onReady': onPlayerReady,
