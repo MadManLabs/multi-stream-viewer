@@ -21,7 +21,7 @@ export class ViewerComponent extends Vue {
   videos: Array<Video> = []
 
   mounted () {
-    providers.VideoProviders.forEach(provider => provider.setup())
+    // providers.VideoProviders.forEach(provider => provider.setup())
 
     if (this.parseQuery()) {
       this.testMessage = 'Successfully parsed URL query'

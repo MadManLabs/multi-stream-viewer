@@ -1,7 +1,7 @@
 import { VideoProvider, Video } from '../video'
 
 export interface IVideoProvider {
-  setup ()
+  // setup ()
   requestVideoFromProvider (id: string, video: Video)
 }
 
