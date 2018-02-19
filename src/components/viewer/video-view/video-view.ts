@@ -13,7 +13,7 @@ export class VideoViewComponent extends Vue {
     return `${this.video.provider}_${this.video.id}`
   }
 
-  created () {
+  mounted () {
     VideoProviders.get(this.video.provider).requestVideoFromProvider(this.id, this.video)
   }
 }

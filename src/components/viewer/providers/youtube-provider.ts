@@ -5,22 +5,24 @@ let YoutubePlayer = require('youtube-player')
 
 export class YoutubeProvider extends AbstractProvider {
   constructor () {
-    super('https://www.youtube.com/iframe_api', VideoProvider.youtube, false)
+    // super('https://www.youtube.com/iframe_api', VideoProvider.youtube, false)
+    super('', VideoProvider.youtube)
 
     const context = this
 
-    if (!window['onYouTubeIframeAPIReady']) {
-      window['onYouTubeIframeAPIReady'] = function () {
-        context.ready = true
-      }
-    }
+    // Done: YoutubePlayer does handle loading youtube api. Remove custom loading of api.
+    // if (!window['onYouTubeIframeAPIReady']) {
+    //   window['onYouTubeIframeAPIReady'] = function () {
+    //     context.ready = true
+    //   }
+    // }
   }
 
   protected createVideoPlayer (id: string, video: Video): IVideoPlayer {
     const ytPlayer = new YoutubePlayer(id, {
       height: 390,
-      width: 640,
-      videoId: video.id
+      width: 640
+      // videoId: video.id
       // playerVars: {
       //   enablejsapi: 1,
       //   origin: window.location.href // TODO: Check if this is correct and proper usage
@@ -28,13 +30,15 @@ export class YoutubeProvider extends AbstractProvider {
     }) as YT.Player
     // FIXME: Try and remove error: Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://www.youtube.com') does not match the recipient window's origin ('http://localhost:8080').
 
+    ytPlayer.cueVideoById(video.id, video.timestamp)
     const player = new YoutubeVideoPlayer(ytPlayer)
 
     if (video.muted) {
       player.mute()
     }
-    player.seek(video.timestamp)
-    player.pause()
+
+    // player.seek(video.timestamp)
+    // player.pause()
 
     return player
   }
