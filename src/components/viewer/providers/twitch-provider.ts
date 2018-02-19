@@ -13,38 +13,64 @@ export class TwitchProvider extends AbstractProvider {
       width: 640,
       video: video.id
     })
+    console.debug('creating custom twitch player')
     const player = new TwitchPlayer(twPlayer)
+    player.seek(video.timestamp)
+    // FIXME: This seems to have no effect. Even if the player is ready it wont seek now.
+    // However it will seek when calling from a button in the video view
     player.pause()
     if (video.muted) {
       player.mute()
     }
-    player.seek(video.timestamp)
     return player
   }
 }
 
 class TwitchPlayer implements IVideoPlayer {
-  constructor (private player: Twitch.Player) {}
+  private ready = false
+
+  constructor (private player: Twitch.Player) {
+    player.addEventListener('ready', () => {
+      this.ready = true
+    })
+
+    // player.addEventListener('play', () => console.debug('play twitch'))
+  }
 
   play () {
-    this.player.play()
+    this.readyPlayer().then(player => player.play())
   }
   pause () {
-    this.player.pause()
+    this.readyPlayer().then(player => player.pause())
   }
   seek (time: number) {
-    const paused = this.player.isPaused()
-    this.player.seek(time)
-    if (paused) {
-      this.player.pause()
-    }
+    this.readyPlayer().then(player => {
+      const paused = player.isPaused()
+      console.debug(`seeking to ${time}`)
+      player.seek(time)
+      if (paused) {
+        player.pause()
+      }
+    })
   }
   mute () {
-    this.player.setMuted(true)
+    this.readyPlayer().then(player => player.setMuted(true))
   }
   unmute () {
-    this.player.setMuted(false)
+    this.readyPlayer().then(player => player.setMuted(false))
   }
+
+  private async readyPlayer (): Promise<Twitch.Player> {
+    while (!this.ready) {
+      await sleep(100)
+    }
+    console.debug('player is ready')
+    return this.player
+  }
+}
+
+function sleep (ms = 0) { // TODO: clean up and refactor sleep to util
+  return new Promise(r => setTimeout(r, ms))
 }
 
 const instance = TwitchProvider.getInstance(TwitchProvider)

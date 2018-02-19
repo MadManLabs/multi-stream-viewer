@@ -1,11 +1,13 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { Video } from '../video'
-import { VideoProviders } from '../providers/providers'
+import { VideoProviders, IVideoPlayer } from '../providers/providers'
 
 @Component({
   template: require('./video-view.html')
 })
 export class VideoViewComponent extends Vue {
+  videoPlayer: IVideoPlayer
+
   @Prop({ required: true })
   video: Video
 
@@ -15,5 +17,6 @@ export class VideoViewComponent extends Vue {
 
   mounted () {
     VideoProviders.get(this.video.provider).requestVideoFromProvider(this.id, this.video)
+    .then(player => this.videoPlayer = player)
   }
 }

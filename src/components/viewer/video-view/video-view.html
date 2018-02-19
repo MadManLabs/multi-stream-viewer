@@ -1,1 +1,6 @@
-<div :id='id'>{{video}}</div>
+<div>
+    <div :id='id'>{{video}}</div>
+    <button @click='videoPlayer.seek(video.timestamp)'>Seek</button>
+    <button @click='videoPlayer.mute()'>Mute</button>
+    <button @click='videoPlayer.unmute()'>Unmute</button>
+</div>
