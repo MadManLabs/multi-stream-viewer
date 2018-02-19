@@ -46,7 +46,6 @@ class TwitchPlayer implements IVideoPlayer {
   seek (time: number) {
     this.readyPlayer().then(player => {
       const paused = player.isPaused()
-      console.debug(`seeking to ${time}`)
       player.seek(time)
       if (paused) {
         player.pause()
@@ -64,7 +63,6 @@ class TwitchPlayer implements IVideoPlayer {
     while (!this.ready) {
       await sleep(100)
     }
-    console.debug('player is ready')
     return this.player
   }
 }
