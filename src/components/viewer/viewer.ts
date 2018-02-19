@@ -4,6 +4,7 @@ import bCol from 'bootstrap-vue/es/components/layout/col'
 import bRow from 'bootstrap-vue/es/components/layout/row'
 import { Video, VideoProvider } from './video'
 import { VideoViewComponent } from './video-view/video-view'
+import { PlayerControllerComponent } from './player-controller/player-controller'
 import { createVideoFromQuery } from './util/query-parser'
 import * as providers from './providers/providers'
 
@@ -13,7 +14,8 @@ import * as providers from './providers/providers'
     'b-container': bContainer,
     'b-col': bCol,
     'b-row': bRow,
-    'video-view': VideoViewComponent
+    'video-view': VideoViewComponent,
+    'player-controller': PlayerControllerComponent
   }
 })
 export class ViewerComponent extends Vue {
