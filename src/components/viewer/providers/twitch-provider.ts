@@ -13,28 +13,49 @@ export class TwitchProvider extends AbstractProvider {
       width: 640,
       video: video.id
     })
-    console.debug('creating custom twitch player')
-    const player = new TwitchPlayer(twPlayer)
-    player.seek(video.timestamp)
+
+    const player = new TwitchPlayer(twPlayer, video)
+    // player.seek(video.timestamp)
     // FIXME: This seems to have no effect. Even if the player is ready it wont seek now.
     // However it will seek when calling from a button in the video view
-    player.pause()
-    if (video.muted) {
-      player.mute()
-    }
+    // player.pause()
+    // if (video.muted) {
+    //   player.mute()
+    // }
     return player
   }
 }
 
 class TwitchPlayer implements IVideoPlayer {
+  private initializing = true
   private ready = false
 
-  constructor (private player: Twitch.Player) {
+  constructor (private player: Twitch.Player, private video: Video) {
     player.addEventListener('ready', () => {
       this.ready = true
+      player.play()
     })
 
-    // player.addEventListener('play', () => console.debug('play twitch'))
+    player.addEventListener('play', async () => {
+      if (!this.initializing) return
+
+      // FIXME: This is an ugly hack to get twitch videos synced up and ready to play
+
+      // console.debug('twitch playing')
+      player.setMuted(true)
+      player.play()
+
+      await sleep(1000)
+
+      player.seek(video.timestamp)
+
+      await sleep(1000)
+
+      player.pause()
+      player.seek(video.timestamp)
+      player.setMuted(video.muted)
+      this.initializing = false
+    })
   }
 
   play () {

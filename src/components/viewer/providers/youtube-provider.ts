@@ -31,24 +31,50 @@ export class YoutubeProvider extends AbstractProvider {
     // FIXME: Try and remove error: Failed to execute 'postMessage' on 'DOMWindow': The target origin provided ('https://www.youtube.com') does not match the recipient window's origin ('http://localhost:8080').
 
     ytPlayer.cueVideoById(video.id, video.timestamp)
-    const player = new YoutubeVideoPlayer(ytPlayer)
+    const player = new YoutubeVideoPlayer(ytPlayer, video)
 
     if (video.muted) {
       player.mute()
+    } else {
+      player.unmute()
     }
 
-    // player.seek(video.timestamp)
-    // player.pause()
+    player.seek(video.timestamp)
+    player.pause()
 
     return player
   }
 }
 
 class YoutubeVideoPlayer implements IVideoPlayer {
+  private initializing = true
   private ready = false
 
-  constructor (private player: YT.Player) {
-    player.addEventListener('onReady', _ => this.ready = true)
+  constructor (private player: YT.Player, private video: Video) {
+    player.addEventListener('onReady', _ => {
+      this.ready = true
+    })
+
+    // player.addEventListener('onStateChange', async () => {
+    //   if (!this.initializing || player.getPlayerState() !== YT.PlayerState.PLAYING) return
+
+    //   // FIXME: This is an ugly hack to get youtube videos synced up and ready to play
+
+    //   console.debug('youtube playing')
+    //   player.mute()
+    //   player.playVideo()
+
+    //   await sleep(1000)
+
+    //   // player.seek(video.timestamp)
+
+    //   // await sleep(1000)
+
+    //   player.pauseVideo()
+    //   player.seekTo(video.timestamp, true)
+    //   if (!video.muted) player.unMute()
+    //   this.initializing = false
+    // })
   }
 
   play () {
@@ -66,6 +92,10 @@ class YoutubeVideoPlayer implements IVideoPlayer {
   unmute () {
     this.player.unMute()
   }
+}
+
+function sleep (ms = 0) { // TODO: clean up and refactor sleep to util
+  return new Promise(r => setTimeout(r, ms))
 }
 
 const instance = YoutubeProvider.getInstance(YoutubeProvider)
