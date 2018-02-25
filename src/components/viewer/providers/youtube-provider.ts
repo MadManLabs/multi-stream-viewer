@@ -42,6 +42,10 @@ export class YoutubeProvider extends AbstractProvider {
     player.seek(video.timestamp)
     player.pause()
 
+    // ytPlayer.addEventListener('onReady', () => {
+    //   this.bubbleIframeMouseMove(ytPlayer.getIframe())
+    // })
+
     return player
   }
 }

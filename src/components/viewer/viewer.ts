@@ -27,10 +27,10 @@ export class ViewerComponent extends Vue {
     gridTemplateColumns: '1fr',
     justifyContent: 'center'
   }
-  width = 640
-  height = 400
   videoViewWidth = 100
   videoViewHeight = 100
+  showControls = true
+  private controlTimer: number = null
 
   mounted () {
     if (this.parseQuery()) {
@@ -39,8 +39,8 @@ export class ViewerComponent extends Vue {
       const videosPerCol = Math.ceil(this.videos.length / videosPerRow)
       this.gridStyle.gridTemplateColumns = '1fr '.repeat(videosPerRow)
       // console.debug(document.querySelector('body'))
-      this.height = (document.querySelector('body')).clientHeight / videosPerCol
-      this.width = this.height * ratio
+      // this.height = (document.querySelector('body')).clientHeight / videosPerCol
+      // this.width = this.height * ratio
       this.videoViewWidth = 100 / videosPerRow
       this.videoViewHeight = 100 / videosPerCol
       // console.debug(videosPerRow)
@@ -49,6 +49,23 @@ export class ViewerComponent extends Vue {
     } else {
       this.testMessage = 'Failed to parse URL query'
     }
+
+    // const listener = document.addEventListener('mousemove', this.mouseMoved)
+  }
+
+  beforeDestroy () {
+    // document.removeEventListener('mousemove', this.mouseMoved)
+  }
+
+  mouseMoved () {
+    this.showControls = true
+    if (this.controlTimer !== null) {
+      clearTimeout(this.controlTimer)
+    }
+    this.controlTimer = window.setTimeout(() => {
+      this.showControls = false
+      this.controlTimer = null
+    }, 1000)
   }
 
   private parseQuery (): boolean {

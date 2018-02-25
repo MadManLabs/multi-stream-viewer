@@ -37,6 +37,28 @@ export abstract class AbstractProvider extends Singleton<AbstractProvider> imple
   }
 
   protected abstract createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer
+
+  /**
+   * Allows an iframe to bubble its mousemove event so that the iframes parent container can detect it
+   * https://stackoverflow.com/a/38442439
+   * https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/MouseEvent
+   * @param iframe The iframe element
+   */
+  protected bubbleIframeMouseMove (iframe: HTMLIFrameElement) {
+
+    iframe.contentWindow.addEventListener('mousemove', function (event) {
+      const boundingClientRect = iframe.getBoundingClientRect()
+
+      const evt = new MouseEvent('mousemove', {
+        bubbles: true,
+        cancelable: false,
+        clientX: event.clientX + boundingClientRect.left,
+        clientY: event.clientY + boundingClientRect.top
+      })
+
+      iframe.dispatchEvent(evt)
+    })
+  }
 }
 
 function sleep (ms = 0) {

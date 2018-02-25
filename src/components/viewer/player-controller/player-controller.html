@@ -1,5 +1,11 @@
-<div :style="controllerStyle">
-    <button @click='play()'> <div class="icon dripicons-media-play"></div></button>
-    <button @click='pause()'> <div class="icon dripicons-media-pause"></div></button>
-    <button @click='seek()'> <div class="icon dripicons-clockwise"></div></button>
+<div :style="controllerStyle" class="bg-dark border border-light rounded">
+    <div v-if="closed">
+        <button @click='open()' class="btn btn-dark btn-sm" title="Open Media Controls"> <div class="icon dripicons-plus"></div></button>
+    </div>
+    <div v-else>
+        <button @click='play()' class="btn btn-dark btn-lg" title="Play"> <div class="icon dripicons-media-play"></div></button>
+        <button @click='pause()' class="btn btn-dark btn-lg" title="Pause"> <div class="icon dripicons-media-pause"></div></button>
+        <button @click='seek()' class="btn btn-dark btn-lg" title="Sync Videos"> <div class="icon dripicons-clock"></div></button>
+        <button @click='close()' class="btn btn-dark btn-lg float-right" title="Minimize Media Controls"> <div class="icon dripicons-minus"></div></button>
+    </div>
 </div>
