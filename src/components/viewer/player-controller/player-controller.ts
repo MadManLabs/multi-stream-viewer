@@ -1,8 +1,13 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 import { PlayerBus } from '../util/player-bus'
+// let AlertIcon = require('vue-ionicons/dist/ios-alert')
+// import * as AlertIcon from 'vue-ionicons/dist/ios-alert'
 
 @Component({
   template: require('./player-controller.html')
+  // components: {
+  //   'alert-icon': AlertIcon
+  // }
 })
 export class PlayerControllerComponent extends Vue {
   firstPlay = true
