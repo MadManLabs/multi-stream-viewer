@@ -8,6 +8,7 @@ import { PlayerControllerComponent } from './player-controller/player-controller
 import { createVideoFromQuery } from './util/query-parser'
 import * as providers from './providers/providers'
 
+const ratio = 16 / 9
 @Component({
   template: require('./viewer.html'),
   components: {
@@ -21,10 +22,30 @@ import * as providers from './providers/providers'
 export class ViewerComponent extends Vue {
   testMessage: string = 'data string here'
   videos: Array<Video> = []
+  gridStyle = {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    justifyContent: 'center'
+  }
+  width = 640
+  height = 400
+  videoViewWidth = 100
+  videoViewHeight = 100
 
   mounted () {
     if (this.parseQuery()) {
       this.testMessage = 'Successfully parsed URL query'
+      const videosPerRow = Math.ceil(Math.sqrt(this.videos.length))
+      const videosPerCol = Math.ceil(this.videos.length / videosPerRow)
+      this.gridStyle.gridTemplateColumns = '1fr '.repeat(videosPerRow)
+      // console.debug(document.querySelector('body'))
+      this.height = (document.querySelector('body')).clientHeight / videosPerCol
+      this.width = this.height * ratio
+      this.videoViewWidth = 100 / videosPerRow
+      this.videoViewHeight = 100 / videosPerCol
+      // console.debug(videosPerRow)
+      // console.debug(videosPerCol)
+      // console.debug((document.querySelector('body')).clientHeight / videosPerCol)
     } else {
       this.testMessage = 'Failed to parse URL query'
     }
@@ -65,6 +86,7 @@ export class ViewerComponent extends Vue {
 // https://www.twitch.tv/videos/228706076 - rob
 
 // http://localhost:8080/viewer?v=provider:yt,id:FgzxNo15T-0,timestamp:1.96&v=provider:yt,id:bVQogFuMq7c,timestamp:0.29,muted:!t&v=provider:tw,id:228706241,muted:!t,timestamp:25&v=provider:tw,id:228706076,muted:!t,timestamp:25
+// http://localhost:8080/viewer?v=provider:yt,id:FgzxNo15T-0,timestamp:1.96&v=provider:yt,id:bVQogFuMq7c,timestamp:0.29,muted:!t&v=provider:yt,id:PjUOHMDU70M,muted:!t&v=provider:tw,id:228706241,muted:!t,timestamp:25&v=provider:tw,id:228706076,muted:!t,timestamp:25
 
 // Failing test urls
 // unknown provider: http://localhost:8080/viewer?v=provider:yt,id:FgzxNo15T-0,timestamp:1.96&v=provider:vi,id:bVQogFuMq7c

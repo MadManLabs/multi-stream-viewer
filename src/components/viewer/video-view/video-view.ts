@@ -11,19 +11,29 @@ export class VideoViewComponent extends Vue {
 
   @Prop({ required: true })
   video: Video
+  @Prop({ required: true })
+  width: number
+  @Prop({ required: true })
+  height: number
+
+  wrapperStyle = {
+    width: '100vw',
+    height: '100vh'
+  }
 
   get id () {
     return `${this.video.provider}_${this.video.id}`
   }
 
-  created () {
+  mounted () {
+    VideoProviders.get(this.video.provider).requestVideoFromProvider(this.id, this.video, 640, 400)
+    .then(player => this.videoPlayer = player)
+
+    this.wrapperStyle.width = this.width + 'vw'
+    this.wrapperStyle.height = this.height + 'vh'
+
     PlayerBus.$on('play', () => this.videoPlayer.play())
     PlayerBus.$on('pause', () => this.videoPlayer.pause())
     PlayerBus.$on('seek', () => this.videoPlayer.seek(this.video.timestamp))
-  }
-
-  mounted () {
-    VideoProviders.get(this.video.provider).requestVideoFromProvider(this.id, this.video)
-    .then(player => this.videoPlayer = player)
   }
 }

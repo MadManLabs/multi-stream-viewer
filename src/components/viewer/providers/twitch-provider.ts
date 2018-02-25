@@ -7,10 +7,10 @@ export class TwitchProvider extends AbstractProvider {
     super('http://player.twitch.tv/js/embed/v1.js', VideoProvider.twitch)
   }
 
-  protected createVideoPlayer (id: string, video: Video): IVideoPlayer {
+  protected createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer {
     const twPlayer = new Twitch.Player(id, {
-      height: 400,
-      width: 640,
+      height: height,
+      width: width,
       video: video.id
     })
 
@@ -39,7 +39,8 @@ class TwitchPlayer implements IVideoPlayer {
     player.addEventListener('play', async () => {
       if (!this.initializing) return
 
-      // FIXME: This is an ugly hack to get twitch videos synced up and ready to play
+      // FIXME: This is an ugly hack to get twitch videos synced up and ready to play - only works sometimes
+      // TODO: Invistigate. Check how and when these events are really called and when various function calls will work
 
       // console.debug('twitch playing')
       player.setMuted(true)

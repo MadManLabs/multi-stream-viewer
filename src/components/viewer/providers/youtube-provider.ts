@@ -18,10 +18,10 @@ export class YoutubeProvider extends AbstractProvider {
     // }
   }
 
-  protected createVideoPlayer (id: string, video: Video): IVideoPlayer {
+  protected createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer {
     const ytPlayer = new YoutubePlayer(id, {
-      height: 390,
-      width: 640
+      height: height,
+      width: width
       // videoId: video.id
       // playerVars: {
       //   enablejsapi: 1,

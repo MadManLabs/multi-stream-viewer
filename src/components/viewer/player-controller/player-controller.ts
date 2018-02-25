@@ -7,6 +7,15 @@ import { PlayerBus } from '../util/player-bus'
 export class PlayerControllerComponent extends Vue {
   firstPlay = true
 
+  controllerStyle = {
+    position: 'absolute',
+    width: '600px',
+    height: '70px',
+    left: '760px',
+    top: '800px',
+    backgroundColor: '#aaaaaa'
+  }
+
   play () {
     if (this.firstPlay) {
       this.firstPlay = false

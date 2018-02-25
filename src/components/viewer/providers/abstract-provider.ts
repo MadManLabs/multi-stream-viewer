@@ -13,7 +13,7 @@ export abstract class AbstractProvider extends Singleton<AbstractProvider> imple
     VideoProviders.set(providerId, this)
   }
 
-  async requestVideoFromProvider (id: string, video: Video): Promise<IVideoPlayer> {
+  async requestVideoFromProvider (id: string, video: Video, width: number, height: number): Promise<IVideoPlayer> {
     if (!this.ready && !this.loadingScript) {
       this.loadingScript = true
       if (this.apiScript !== '') { // Handle importing script
@@ -33,10 +33,10 @@ export abstract class AbstractProvider extends Singleton<AbstractProvider> imple
       await sleep(200)
     }
 
-    return this.createVideoPlayer(id, video)
+    return this.createVideoPlayer(id, video, width, height)
   }
 
-  protected abstract createVideoPlayer (id: string, video: Video): IVideoPlayer
+  protected abstract createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer
 }
 
 function sleep (ms = 0) {

@@ -1,7 +1,7 @@
 import { VideoProvider, Video } from '../video'
 
 export interface IVideoProvider {
-  requestVideoFromProvider (id: string, video: Video): Promise<IVideoPlayer>
+  requestVideoFromProvider (id: string, video: Video, width: number, height: number): Promise<IVideoPlayer>
 }
 
 export interface IVideoPlayer {
