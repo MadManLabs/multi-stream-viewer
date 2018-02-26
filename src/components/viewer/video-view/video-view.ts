@@ -27,13 +27,26 @@ export class VideoViewComponent extends Vue {
 
   mounted () {
     VideoProviders.get(this.video.provider).requestVideoFromProvider(this.id, this.video, 640, 400)
-    .then(player => this.videoPlayer = player)
+    .then(player => {
+      this.videoPlayer = player
+      this.video.player = player
+    })
 
     this.wrapperStyle.width = this.width + 'vw'
     this.wrapperStyle.height = this.height + 'vh'
 
     PlayerBus.$on('play', () => this.videoPlayer.play())
     PlayerBus.$on('pause', () => this.videoPlayer.pause())
-    PlayerBus.$on('seek', () => this.videoPlayer.seek(this.video.timestamp))
+    PlayerBus.$on('sync', (referenceVideo: Video) => {
+      referenceVideo.player.getTime().then(time => {
+        this.videoPlayer.seek(time - referenceVideo.timestamp + this.video.timestamp)
+      })
+    })
+    PlayerBus.$on('syncnplay', (referenceVideo: Video) => {
+      referenceVideo.player.getTime().then(time => {
+        this.videoPlayer.seek(time - referenceVideo.timestamp + this.video.timestamp)
+        this.videoPlayer.play()
+      })
+    })
   }
 }

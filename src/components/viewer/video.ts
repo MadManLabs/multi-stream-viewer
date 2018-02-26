@@ -1,3 +1,5 @@
+import { IVideoPlayer } from './providers/providers'
+
 /**
  * video provider - twitch, youtube, ...
  * video id - e.g. bVQogFuMq7c
@@ -9,7 +11,8 @@ export interface Video {
   provider: VideoProvider,
   id: string,
   timestamp?: number,
-  muted?: boolean
+  muted?: boolean,
+  player?: IVideoPlayer
 }
 
 export enum VideoProvider {

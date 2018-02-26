@@ -10,6 +10,8 @@ export interface IVideoPlayer {
   seek (time: number)
   mute ()
   unmute ()
+  getTime (): Promise<number>
+  getLength (): Promise<number>
 }
 
 export const VideoProviders = new Map<VideoProvider, IVideoProvider>()

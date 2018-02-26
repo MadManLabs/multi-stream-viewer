@@ -96,6 +96,12 @@ class YoutubeVideoPlayer implements IVideoPlayer {
   unmute () {
     this.player.unMute()
   }
+  getTime (): Promise<number> {
+    return (this.player as any).getCurrentTime() as Promise<number>
+  }
+  getLength (): Promise<number> {
+    return (this.player as any).getDuration() as Promise<number>
+  }
 }
 
 function sleep (ms = 0) { // TODO: clean up and refactor sleep to util

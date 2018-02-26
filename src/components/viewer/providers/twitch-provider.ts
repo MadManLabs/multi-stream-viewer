@@ -80,6 +80,16 @@ class TwitchPlayer implements IVideoPlayer {
   unmute () {
     this.readyPlayer().then(player => player.setMuted(false))
   }
+  getTime (): Promise<number> {
+    if (this.ready) return Promise.resolve(this.player.getCurrentTime())
+
+    return Promise.resolve(0)
+  }
+  getLength (): Promise<number> {
+    if (this.ready) return Promise.resolve(this.player.getDuration())
+
+    return Promise.resolve(0)
+  }
 
   private async readyPlayer (): Promise<Twitch.Player> {
     while (!this.ready) {
