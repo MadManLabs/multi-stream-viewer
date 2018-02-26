@@ -14,10 +14,13 @@ export abstract class AbstractProvider extends Singleton<AbstractProvider> imple
   }
 
   async requestVideoFromProvider (id: string, video: Video, width: number, height: number): Promise<IVideoPlayer> {
-    if (!this.ready && !this.loadingScript) {
+    if (!this.loadingScript && !this.ready) {
+      // console.debug('about to initiate loading script: ' + this.apiScript)
       this.loadingScript = true
       if (this.apiScript !== '') { // Handle importing script
+        // console.debug('importing script: ' + this.apiScript)
         importScript(this.apiScript, () => {
+          // console.debug('script imported: ' + this.apiScript)
           if (this.readyWhenScriptLoaded) {
             this.ready = true
           }
