@@ -5,6 +5,24 @@ import { Video } from '../video'
 // let AlertIcon = require('vue-ionicons/dist/ios-alert')
 // import * as AlertIcon from 'vue-ionicons/dist/ios-alert'
 
+declare global {
+  interface Document {
+    mozRequestFullScreen: () => void
+    msRequestFullscreen: () => void
+    mozCancelFullScreen: () => void
+    msExitFullscreen: () => void
+    mozFullScreenElement: Element
+    msFullscreenElement: Element
+  }
+
+  interface HTMLElement {
+    mozRequestFullScreen: () => void
+    msRequestFullscreen: () => void
+    // mozCancelFullScreen: () => void
+    // msExitFullscreen: () => void
+  }
+}
+
 @Component({
   template: require('./player-controller.html'),
   // components: {
@@ -69,5 +87,19 @@ export class PlayerControllerComponent extends Vue {
   sync () {
     PlayerBus.$emit('sync', this.videos[0])
     // console.debug('seek')
+  }
+
+  toggleFullscreen () {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.mozFullScreenElement && !document.msFullscreenElement) {
+      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen()
+      if (document.documentElement.webkitRequestFullscreen) document.documentElement.webkitRequestFullscreen()
+      if (document.documentElement.mozRequestFullScreen) document.documentElement.mozRequestFullScreen()
+      if (document.documentElement.msRequestFullscreen) document.documentElement.msRequestFullscreen()
+    } else {
+      if (document.exitFullscreen) document.exitFullscreen()
+      if (document.webkitExitFullscreen) document.webkitExitFullscreen()
+      if (document.mozCancelFullScreen) document.mozCancelFullScreen()
+      if (document.msExitFullscreen) document.msExitFullscreen()
+    }
   }
 }
