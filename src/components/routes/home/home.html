@@ -14,7 +14,18 @@
                 <hr class="border border-secondary">
             </div>
             <div class="text-center">
-                <button @click="addVideo()" :disabled="!canAddVideo()" class="btn btn-success btn-lg">Add Another Video</button>
+                <button @click="addVideo()" :disabled="!areVideosValid()" class="btn btn-primary btn-lg">Add Another Video</button>
+                <button @click="createViewLink()" :hidden="!areVideosValid()" class="btn btn-success btn-lg">Create {{webSiteName}} Link</button>
+            </div>
+            <div v-if="viewLink !== ''">
+                <hr class="border border-primary">
+                <h2>Your {{webSiteName}} Link Is:</h2>
+                <div @click="selectLink()" style="word-wrap:break-word" class="p-3 bg-dark border border-primary rounded">
+                    <h3><a :href="viewLink" target="_blank" id="viewLink">{{viewLink}}</a></h3>
+                </div>
+                <div class="text-center my-3">
+                    <button @click="copyLink()" class="btn btn-primary btn-lg">Copy Link</button>
+                </div>
             </div>
         </b-col>
     </b-row>
