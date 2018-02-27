@@ -15,6 +15,8 @@ export class VideoViewComponent extends Vue {
   width: number
   @Prop({ required: true })
   height: number
+  @Prop({ required: true })
+  dismissWrapper: boolean
 
   wrapperStyle = {
     width: '100vw',
@@ -32,8 +34,15 @@ export class VideoViewComponent extends Vue {
       this.video.player = player
     })
 
-    this.wrapperStyle.width = this.width + 'vw'
-    this.wrapperStyle.height = this.height + 'vh'
+    if (!this.dismissWrapper) {
+      console.debug('view' + this.dismissWrapper)
+      this.wrapperStyle.width = this.width + 'vw'
+      this.wrapperStyle.height = this.height + 'vh'
+    } else {
+      console.debug('pixels' + this.dismissWrapper)
+      this.wrapperStyle.width = this.width + 'px'
+      this.wrapperStyle.height = this.height + 'px'
+    }
 
     PlayerBus.$on('play', () => this.videoPlayer.play())
     PlayerBus.$on('pause', () => this.videoPlayer.pause())

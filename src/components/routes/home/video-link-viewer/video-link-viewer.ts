@@ -2,9 +2,13 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 import { VideoLink } from '../video-link'
 import { VideoProviders } from '../../../../shared/providers/providers'
 import { url } from 'inspector'
+import { VideoViewComponent } from '../../../video-view/video-view'
 
 @Component({
-  template: require('./video-link-viewer.html')
+  template: require('./video-link-viewer.html'),
+  components: {
+    'video-view': VideoViewComponent
+  }
 })
 export class VideoLinkViewerComponent extends Vue {
   @Prop({ required: true })
@@ -22,7 +26,14 @@ export class VideoLinkViewerComponent extends Vue {
           if (id === '') {
             this.alertMsg = 'We were not able to find a valid Video ID from the provided URL'
           } else {
-            this.alertMsg = id
+            this.alertMsg = ''
+
+            this.videoLink.video = {
+              provider: k,
+              id: id,
+              timestamp: 0,
+              muted: false
+            }
           }
         }
       })
