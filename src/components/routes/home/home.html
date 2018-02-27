@@ -9,7 +9,7 @@
             <hr class="border border-primary">
             <h3>Add Videos:</h3>
             <br>
-            <div v-for="videoLink in videoLinks" :key="videoLink">
+            <div v-for="videoLink in videoLinks" :key="videoLink.key">
                 <video-link-viewer :videoLink="videoLink"></video-link-viewer>
             </div>
         </b-col>

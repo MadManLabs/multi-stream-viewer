@@ -19,6 +19,7 @@ export class VideoLinkViewerComponent extends Vue {
   urlStringChanged () {
     try {
       this.videoLink.url = new URL(this.videoLink.urlString)
+      this.videoLink.video = null
       this.alertMsg = 'The provided URL is not recognized as a valid video provider'
       VideoProviders.forEach((v,k) => {
         if (v.acceptsHostName(this.videoLink.url)) {
@@ -38,8 +39,18 @@ export class VideoLinkViewerComponent extends Vue {
         }
       })
     } catch (error) {
-      this.alertMsg = 'Input is not a valid URL'
+      if (this.videoLink.urlString === '') {
+        this.alertMsg = ''
+      } else {
+        this.alertMsg = 'Input is not a valid URL'
+      }
       this.videoLink.url = null
+      this.videoLink.video = null
     }
+  }
+
+  clearString () {
+    this.videoLink.urlString = ''
+    this.urlStringChanged()
   }
 }

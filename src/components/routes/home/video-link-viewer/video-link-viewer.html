@@ -1,7 +1,13 @@
 <div>
     <div v-show="alertMsg !== ''" class="alert alert-danger">{{alertMsg}}</div>
-    <input v-model="videoLink.urlString" @change="urlStringChanged()" @keyup="urlStringChanged()" placeholder="insert video link: e.g. https://www.youtube.com/watch?v=UFOH1wn8YCo" class="bg-dark border border-primary rounded form-control .form-control-lg text-light"
-    />
+    <div class="input-group">
+        <input v-model="videoLink.urlString" @change="urlStringChanged()" @keyup="urlStringChanged()" placeholder="insert video URL: e.g. https://www.youtube.com/watch?v=UFOH1wn8YCo" class="bg-dark border border-primary rounded form-control .form-control-lg text-light"
+        />
+        <div class="input-group-append">
+            <button @click="clearString" class="btn btn-primary">Clear URL</button>
+        </div>
+    </div>
+
     <div v-if="videoLink.video !== null">
         <br>
         <video-view style="margin:auto" :video="videoLink.video" :width="640" :height="400" :dismissWrapper="true"></video-view>

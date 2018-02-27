@@ -21,7 +21,7 @@ export class HomeComponent extends Vue {
   webSiteName: string = WebSiteName
   videoProviders: string = ''
 
-  videoLinks: Array<VideoLink> = [ CreateBlankVideoLink() ]
+  videoLinks: Array<VideoLink> = [ CreateBlankVideoLink(0) ]
   // package: string = 'vue-webpack-typescript'
   // repo: string = 'https://github.com/ducksoupdev/vue-webpack-typescript'
   // mode: string = process.env.ENV
