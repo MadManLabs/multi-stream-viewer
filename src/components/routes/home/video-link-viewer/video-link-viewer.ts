@@ -29,11 +29,15 @@ export class VideoLinkViewerComponent extends Vue {
           } else {
             this.alertMsg = ''
 
-            this.videoLink.video = {
-              provider: k,
-              id: id,
-              timestamp: 0,
-              muted: false
+            if (this.videoLink.video === null) {
+              console.debug('creating new video object')
+              this.videoLink.video = {
+                provider: k,
+                id: id,
+                timestamp: 0,
+                muted: false,
+                player: null
+              }
             }
           }
         }
@@ -52,5 +56,9 @@ export class VideoLinkViewerComponent extends Vue {
   clearString () {
     this.videoLink.urlString = ''
     this.urlStringChanged()
+  }
+
+  captureTimestamp () {
+    this.videoLink.video.player.getTime().then(time => this.videoLink.video.timestamp = time)
   }
 }

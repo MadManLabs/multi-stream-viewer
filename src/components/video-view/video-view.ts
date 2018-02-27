@@ -32,14 +32,16 @@ export class VideoViewComponent extends Vue {
     .then(player => {
       this.videoPlayer = player
       this.video.player = player
+      console.debug(player)
+      console.debug(this.video)
     })
 
     if (!this.dismissWrapper) {
-      console.debug('view' + this.dismissWrapper)
+      // console.debug('view' + this.dismissWrapper)
       this.wrapperStyle.width = this.width + 'vw'
       this.wrapperStyle.height = this.height + 'vh'
     } else {
-      console.debug('pixels' + this.dismissWrapper)
+      // console.debug('pixels' + this.dismissWrapper)
       this.wrapperStyle.width = this.width + 'px'
       this.wrapperStyle.height = this.height + 'px'
     }
