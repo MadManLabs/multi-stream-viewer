@@ -1,7 +1,7 @@
 <div>
     <div v-show="alertMsg !== ''" class="alert alert-danger">{{alertMsg}}</div>
     <div class="input-group">
-        <input v-model="videoLink.urlString" @keyup.enter="urlStringChanged()" placeholder="insert video URL and press 'Enter': e.g. https://www.youtube.com/watch?v=UFOH1wn8YCo" class="bg-dark border border-primary rounded form-control .form-control-lg text-light"
+        <input v-model="videoLink.urlString" @keyup.enter="urlStringChanged()" placeholder="insert video URL and press 'Enter': e.g. https://www.youtube.com/watch?v=UFOH1wn8YCo" class="bg-dark border border-primary rounded form-control form-control-lg text-light"
         />
         <div class="input-group-append">
             <button @click="clearString()" class="btn btn-primary">Clear URL</button>
@@ -16,11 +16,11 @@
         <form action="javascript:void(0)" class="form-inline">
             <div class="form-check mr-4">
                 <label :for="'checkbox' + videoLink.key" class="mr-2">Mute Audio: </label>
-                <input type="checkbox" :id="'checkbox' + videoLink.key" v-model="videoLink.video.muted" class="bg-dark border border-primary rounded form-control .form-control-lg text-light" />
+                <input type="checkbox" :id="'checkbox' + videoLink.key" v-model="videoLink.video.muted" class="bg-dark border border-primary rounded form-control form-control-lg text-light" />
             </div>
             <div class="input-group mr-4">
                 <label :for="'numinput' + videoLink.key" class="mr-2">Timestamp</label>
-                <input type="number" min="0" step="any" :id="'numinput' + videoLink.key" v-model="videoLink.video.timestamp" class="bg-dark border border-primary rounded form-control .form-control-lg text-light" />
+                <input type="number" min="0" step="any" :id="'numinput' + videoLink.key" v-model="videoLink.video.timestamp" class="bg-dark border border-primary rounded form-control form-control-lg text-light" />
                 <div class="input-group-append">
                     <button @click="captureTimestamp()" title="Get timestamp from current video time position" class="btn btn-primary">Capture</button>
                 </div>

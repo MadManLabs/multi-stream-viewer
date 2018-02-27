@@ -32,4 +32,12 @@ export class HomeComponent extends Vue {
       ? VideoProviders.join(' and ')
       : VideoProviders.slice(0, VideoProviders.length - 1).join(', ').concat(' and ', VideoProviders[VideoProviders.length - 1])
   }
+
+  addVideo () {
+    this.videoLinks.push(CreateBlankVideoLink(this.videoLinks.length))
+  }
+
+  canAddVideo (): boolean {
+    return this.videoLinks.every((videoLink => videoLink.video !== null))
+  }
 }

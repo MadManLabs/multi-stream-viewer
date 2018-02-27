@@ -13,6 +13,9 @@
                 <video-link-viewer :videoLink="videoLink"></video-link-viewer>
                 <hr class="border border-secondary">
             </div>
+            <div class="text-center">
+                <button @click="addVideo()" :disabled="!canAddVideo()" class="btn btn-success btn-lg">Add Another Video</button>
+            </div>
         </b-col>
     </b-row>
 </b-container>
