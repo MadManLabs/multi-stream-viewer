@@ -1,0 +1,6 @@
+<div>
+    <div v-show="alertMsg !== ''" class="alert alert-danger">{{alertMsg}}</div>
+    <input v-model="videoLink.urlString" @change="urlStringChanged()" @keyup="urlStringChanged()" placeholder="insert video link: e.g. https://www.youtube.com/watch?v=UFOH1wn8YCo" class="bg-dark border border-primary rounded form-control .form-control-lg text-light"
+    />
+    <p v-if="videoLink.url !== null">Host: {{videoLink.url.hostname}} VideoId: {{videoLink.url.searchParams.get('v')}}</p>
+</div>

@@ -1,17 +1,17 @@
 <b-container class="content">
-  <b-row>
-    <b-col class="content">
-      <h1>
-        <strong>Thank you for using
-          <span class="text-primary package">{{package}}</span>
-        </strong>
-      </h1>
-      <p>This project is running in
-        <strong class="mode">{{mode}} mode</strong>
-      </p>
-      <p>Make sure to follow the project on
-        <a :href="repo">GitHub</a> to stay up to date with the latest releases, or contribute to the project by opening an issue or making
-        a pull-request!</p>
-    </b-col>
-  </b-row>
+    <b-row>
+        <b-col class="content">
+            <h1>
+                <strong>
+                  <span class="text-primary">{{webSiteName}}</span>
+                </strong>
+            </h1>
+            <hr class="border border-primary">
+            <h3>Add Videos:</h3>
+            <br>
+            <div v-for="videoLink in videoLinks" :key="videoLink">
+                <video-link-viewer :videoLink="videoLink"></video-link-viewer>
+            </div>
+        </b-col>
+    </b-row>
 </b-container>
