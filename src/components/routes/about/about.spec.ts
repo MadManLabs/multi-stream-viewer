@@ -1,7 +1,7 @@
 import { spy, assert } from 'sinon'
 import { expect } from 'chai'
 import Component from 'vue-class-component'
-import { ComponentTest, MockLogger } from '../../util/component-test'
+import { ComponentTest, MockLogger } from '../../../util/component-test'
 import { AboutComponent } from './about'
 
 let loggerSpy = spy()

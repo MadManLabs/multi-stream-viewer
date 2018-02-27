@@ -1,4 +1,4 @@
-import { VideoProvider, Video } from '../video'
+import { VideoProvider, Video } from '../../components/routes/viewer/video'
 
 export interface IVideoProvider {
   requestVideoFromProvider (id: string, video: Video, width: number, height: number): Promise<IVideoPlayer>

@@ -1,6 +1,6 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { Video } from '../video'
-import { VideoProviders, IVideoPlayer } from '../providers/providers'
+import { Video } from '../routes/viewer/video'
+import { VideoProviders, IVideoPlayer } from '../../shared/providers/providers'
 import { PlayerBus } from '../util/player-bus'
 
 @Component({

@@ -3,10 +3,10 @@ import bContainer from 'bootstrap-vue/es/components/layout/container'
 import bCol from 'bootstrap-vue/es/components/layout/col'
 import bRow from 'bootstrap-vue/es/components/layout/row'
 import { Video, VideoProvider } from './video'
-import { VideoViewComponent } from './video-view/video-view'
+import { VideoViewComponent } from '../../video-view/video-view'
 import { PlayerControllerComponent } from './player-controller/player-controller'
-import { createVideoFromQuery } from './util/query-parser'
-import * as providers from './providers/providers'
+import { createVideoFromQuery } from '../../../util/query-parser'
+import * as providers from '../../../shared/providers/providers'
 
 const ratio = 16 / 9
 @Component({

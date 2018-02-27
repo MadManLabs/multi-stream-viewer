@@ -1,7 +1,7 @@
-import { Singleton } from '../../../util/singleton'
+import { Singleton } from '../../util/singleton'
 import { IVideoProvider, VideoProviders, IVideoPlayer } from './video-provider'
-import { VideoProvider, Video } from '../video'
-import { importScript } from '../util/script-loader'
+import { VideoProvider, Video } from '../../components/routes/viewer/video'
+import { importScript } from '../../util/script-loader'
 
 export abstract class AbstractProvider extends Singleton<AbstractProvider> implements IVideoProvider {
   protected ready = false

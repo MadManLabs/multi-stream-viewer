@@ -1,6 +1,6 @@
 import Component from 'vue-class-component'
 import { expect } from 'chai'
-import { ComponentTest } from '../../util/component-test'
+import { ComponentTest } from '../../../util/component-test'
 import { ListComponent } from './list'
 
 @Component({

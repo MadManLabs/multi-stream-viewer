@@ -1,5 +1,5 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { PlayerBus } from '../util/player-bus'
+import { PlayerBus } from '../../../util/player-bus'
 import bContainer from 'bootstrap-vue/es/components/layout/container'
 import { Video } from '../video'
 // let AlertIcon = require('vue-ionicons/dist/ios-alert')
@@ -68,6 +68,12 @@ export class PlayerControllerComponent extends Vue {
     this.controllerStyle.left = '100%'
     this.controllerStyle.opacity = '0.5'
     this.controllerStyle.transform = 'translateX(-100%)'
+
+    // FIXME: Edge hack - place the controller to the left instead so it doesn't overflow the page
+    if (navigator.appVersion.indexOf('Edge') !== -1) {
+      this.controllerStyle.left = '0%'
+      this.controllerStyle.transform = 'translateX(0%)'
+    }
   }
 
   play () {

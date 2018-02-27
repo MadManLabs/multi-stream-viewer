@@ -1,4 +1,4 @@
-import { VideoProvider, Video } from '../video'
+import { VideoProvider, Video } from '../../components/routes/viewer/video'
 import { AbstractProvider } from './abstract-provider'
 import { IVideoPlayer } from './video-provider'
 

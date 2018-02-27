@@ -1,5 +1,5 @@
 import rison from 'rison'
-import { Video, VideoProvider } from '../video'
+import { Video, VideoProvider } from '../components/routes/viewer/video'
 
 /**
  * Creates a Video object from a query string in ORison format.

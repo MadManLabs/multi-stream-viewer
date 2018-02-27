@@ -1,4 +1,4 @@
-import { IVideoPlayer } from './providers/providers'
+import { IVideoPlayer } from '../../../shared/providers/providers'
 
 /**
  * video provider - twitch, youtube, ...
