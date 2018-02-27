@@ -1,0 +1,13 @@
+<div :style="controllerStyle" class="bg-dark border border-light rounded">
+    <div v-if="closed">
+        <button @click='open()' class="btn btn-dark btn-sm" title="Open Media Controls"> <div class="icon dripicons-plus"></div></button>
+    </div>
+    <div v-else>
+        <button @click='sync()' class="btn btn-dark btn-lg" title="Sync Videos"> <div class="icon dripicons-clock"></div></button>
+        <button @click='play()' class="btn btn-dark btn-lg" title="Play"> <div class="icon dripicons-media-play"></div></button>
+        <button @click='pause()' class="btn btn-dark btn-lg" title="Pause"> <div class="icon dripicons-media-pause"></div></button>
+
+        <button @click='close()' class="btn btn-dark btn-lg float-right" title="Minimize Media Controls"> <div class="icon dripicons-minus"></div></button>
+        <button @click='toggleFullscreen()' class="btn btn-dark btn-lg float-right" title="Toggle Fulscreen"> <div class="icon dripicons-expand-2"></div></button>
+    </div>
+</div>
