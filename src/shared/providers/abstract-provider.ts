@@ -39,6 +39,9 @@ export abstract class AbstractProvider extends Singleton<AbstractProvider> imple
     return this.createVideoPlayer(id, video, width, height)
   }
 
+  abstract acceptsHostName (url: URL): boolean
+  abstract getVideoIdFromUrl (url: URL): string
+
   protected abstract createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer
 
   /**
