@@ -4,7 +4,7 @@
 <div style="overflow:hidden">
     <div :style="gridStyle">
         <div v-for="video in videos" style="margin:0%;padding:0%">
-            <video-view :video="video" :width="videoViewWidth" :height="videoViewHeight"></video-view>
+            <video-view :video="video" :width="videoViewWidth" :height="videoViewHeight" :dismissWrapper="false"></video-view>
         </div>
     </div>
 

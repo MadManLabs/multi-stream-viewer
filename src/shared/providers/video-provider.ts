@@ -2,6 +2,8 @@ import { VideoProvider, Video } from '../../components/routes/viewer/video'
 
 export interface IVideoProvider {
   requestVideoFromProvider (id: string, video: Video, width: number, height: number): Promise<IVideoPlayer>
+  acceptsHostName (url: URL): boolean
+  getVideoIdFromUrl (url: URL): string
 }
 
 export interface IVideoPlayer {

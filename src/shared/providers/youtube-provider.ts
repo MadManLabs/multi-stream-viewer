@@ -18,6 +18,14 @@ export class YoutubeProvider extends AbstractProvider {
     // }
   }
 
+  acceptsHostName (url: URL): boolean {
+    return url.hostname === 'www.youtube.com'
+  }
+
+  getVideoIdFromUrl (url: URL): string {
+    return url.searchParams.get('v') || ''
+  }
+
   protected createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer {
     const ytPlayer = new YoutubePlayer(id, {
       height: height,

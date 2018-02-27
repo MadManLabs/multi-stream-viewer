@@ -7,6 +7,20 @@ export class TwitchProvider extends AbstractProvider {
     super('http://player.twitch.tv/js/embed/v1.js', VideoProvider.twitch)
   }
 
+  acceptsHostName (url: URL): boolean {
+    return url.hostname === 'www.twitch.tv'
+  }
+
+  getVideoIdFromUrl (url: URL): string {
+    const pathElements = url.pathname.split('/')
+    // console.debug(pathElements)
+    if (pathElements.length === 3 && pathElements[1] === 'videos') {
+      return pathElements[2]
+    }
+
+    return ''
+  }
+
   protected createVideoPlayer (id: string, video: Video, width: number, height: number): IVideoPlayer {
     const twPlayer = new Twitch.Player(id, {
       height: height,

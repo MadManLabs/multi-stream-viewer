@@ -1,17 +1,32 @@
 <b-container class="content">
-  <b-row>
-    <b-col class="content">
-      <h1>
-        <strong>Thank you for using
-          <span class="text-primary package">{{package}}</span>
-        </strong>
-      </h1>
-      <p>This project is running in
-        <strong class="mode">{{mode}} mode</strong>
-      </p>
-      <p>Make sure to follow the project on
-        <a :href="repo">GitHub</a> to stay up to date with the latest releases, or contribute to the project by opening an issue or making
-        a pull-request!</p>
-    </b-col>
-  </b-row>
+    <b-row>
+        <b-col class="content">
+            <h1>
+                <strong>
+                  <span class="text-primary">{{webSiteName}}</span>
+                </strong>
+            </h1>
+            <hr class="border border-primary">
+            <h3>Add Videos:</h3>
+            <br>
+            <div v-for="videoLink in videoLinks" :key="videoLink.key">
+                <video-link-viewer :videoLink="videoLink"></video-link-viewer>
+                <hr class="border border-secondary">
+            </div>
+            <div class="text-center">
+                <button @click="addVideo()" :disabled="!areVideosValid()" class="btn btn-primary btn-lg">Add Another Video</button>
+                <button @click="createViewLink()" :hidden="!areVideosValid()" class="btn btn-success btn-lg">Create {{webSiteName}} Link</button>
+            </div>
+            <div v-if="viewLink !== ''">
+                <hr class="border border-primary">
+                <h2>Your {{webSiteName}} Link Is:</h2>
+                <div @click="selectLink()" style="word-wrap:break-word" class="p-3 bg-dark border border-primary rounded">
+                    <h3><a :href="viewLink" target="_blank" id="viewLink">{{viewLink}}</a></h3>
+                </div>
+                <div class="text-center my-3">
+                    <button @click="copyLink()" class="btn btn-primary btn-lg">Copy Link</button>
+                </div>
+            </div>
+        </b-col>
+    </b-row>
 </b-container>
