@@ -1,15 +1,19 @@
-<!-- <b-container class="content">
-    <b-row>
-        <b-col class="content"> -->
-<div style="overflow:hidden">
-    <div :style="gridStyle">
-        <div v-for="video in videos" style="margin:0%;padding:0%">
-            <video-view :video="video" :width="videoViewWidth" :height="videoViewHeight" :dismissWrapper="false"></video-view>
+<div>
+    <b-modal v-model="queryParseFailed" centered @ok="$router.push('/')" @cancel="queryParseFailed = false" body-bg-variant="dark" body-text-variant="light" header-bg-variant="dark" header-text-variant="danger" footer-bg-variant="dark" footer-text-variant="light">
+        <h3 slot="modal-title">Something went wrong</h3>
+        <p>Something went wrong when we tried to parse the URL provided.<br> Try and check if the provided URL is correct.<br>
+            <br> Some videos may still play. You can choose to ignore this message or go back to the homepage.
+        </p>
+        <span slot="modal-ok">Homepage</span>
+        <span slot="modal-cancel">Ignore</span>
+    </b-modal>
+    <div style="overflow:hidden">
+        <div :style="gridStyle">
+            <div v-for="video in videos" style="margin:0%;padding:0%">
+                <video-view :video="video" :width="videoViewWidth" :height="videoViewHeight" :dismissWrapper="false"></video-view>
+            </div>
         </div>
-    </div>
 
-    <player-controller :videos="videos"></player-controller>
+        <player-controller :videos="videos"></player-controller>
+    </div>
 </div>
-<!-- </b-col>
-    </b-row>
-</b-container> -->

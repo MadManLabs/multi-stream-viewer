@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator'
 import bContainer from 'bootstrap-vue/es/components/layout/container'
 import bCol from 'bootstrap-vue/es/components/layout/col'
 import bRow from 'bootstrap-vue/es/components/layout/row'
+import bModal from 'bootstrap-vue/es/components/modal/modal'
 import { Video, VideoProvider } from './video'
 import { VideoViewComponent } from '../../video-view/video-view'
 import { PlayerControllerComponent } from './player-controller/player-controller'
@@ -15,12 +16,13 @@ const ratio = 16 / 9
     'b-container': bContainer,
     'b-col': bCol,
     'b-row': bRow,
+    'b-modal': bModal,
     'video-view': VideoViewComponent,
     'player-controller': PlayerControllerComponent
   }
 })
 export class ViewerComponent extends Vue {
-  testMessage: string = 'data string here'
+  queryParseFailed: boolean = false
   videos: Array<Video> = []
   gridStyle = {
     display: 'grid',
@@ -34,7 +36,7 @@ export class ViewerComponent extends Vue {
 
   mounted () {
     if (this.parseQuery()) {
-      this.testMessage = 'Successfully parsed URL query'
+      this.queryParseFailed = false
       const videosPerRow = Math.ceil(Math.sqrt(this.videos.length))
       const videosPerCol = Math.ceil(this.videos.length / videosPerRow)
       this.gridStyle.gridTemplateColumns = '1fr '.repeat(videosPerRow)
@@ -47,7 +49,7 @@ export class ViewerComponent extends Vue {
       // console.debug(videosPerCol)
       // console.debug((document.querySelector('body')).clientHeight / videosPerCol)
     } else {
-      this.testMessage = 'Failed to parse URL query'
+      this.queryParseFailed = true
     }
 
     // const listener = document.addEventListener('mousemove', this.mouseMoved)
@@ -71,7 +73,7 @@ export class ViewerComponent extends Vue {
   private parseQuery (): boolean {
     const videoQueries: any = this.$route.query['v']
     /* this.$route.query[] returns either:
-        string`: if there are one 'v' query parameter
+        string: if there are one 'v' query parameter
         string array: if there are multiple 'v' query parameters
         undefined: if there are no 'v' query parameters
     */

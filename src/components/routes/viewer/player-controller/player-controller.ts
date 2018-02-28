@@ -41,7 +41,7 @@ export class PlayerControllerComponent extends Vue {
 
   controllerStyle = {
     position: 'absolute',
-    'z-index': '9999',
+    'z-index': '999',
     'min-width': '30%',
     // height: '20px',
     left: '50%',
