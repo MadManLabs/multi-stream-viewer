@@ -37,8 +37,18 @@ export class HomeComponent extends Vue {
   }
 
   addVideo () {
-    this.videoLinks.push(CreateBlankVideoLink(this.videoLinks.length))
+    this.videoLinks.push(CreateBlankVideoLink(this.videoLinks[this.videoLinks.length - 1].key + 1))
     this.scrollToBottom()
+  }
+
+  removeVideoLink (videoLink: VideoLink) {
+    if (this.videoLinks.length <= 1) return
+    const index = this.videoLinks.indexOf(videoLink)
+    this.videoLinks.splice(index, 1)
+  }
+
+  canRemoveVideoLink (): boolean {
+    return this.videoLinks.length > 1
   }
 
   areVideosValid (): boolean {

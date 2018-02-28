@@ -11,6 +11,7 @@
             <br>
             <div v-for="videoLink in videoLinks" :key="videoLink.key">
                 <video-link-viewer :videoLink="videoLink"></video-link-viewer>
+                <button @click="removeVideoLink(videoLink)" :disabled="!canRemoveVideoLink()" class="btn btn-danger">Remove Video</button>
                 <hr class="border border-secondary">
             </div>
             <div class="text-center mb-3">
