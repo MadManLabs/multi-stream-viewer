@@ -38,6 +38,7 @@ export class HomeComponent extends Vue {
 
   addVideo () {
     this.videoLinks.push(CreateBlankVideoLink(this.videoLinks.length))
+    this.scrollToBottom()
   }
 
   areVideosValid (): boolean {
@@ -63,6 +64,8 @@ export class HomeComponent extends Vue {
     })
 
     this.viewLink = url
+
+    this.scrollToBottom()
   }
 
   selectLink () {
@@ -72,5 +75,12 @@ export class HomeComponent extends Vue {
   copyLink () {
     this.selectLink()
     document.execCommand('copy')
+  }
+
+  private scrollToBottom () {
+    // Scroll to bottom - we wait 50 ms to give Vue a chance to update view before scrolling
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight)
+    }, 50)
   }
 }

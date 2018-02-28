@@ -1,6 +1,6 @@
 <b-container class="content">
     <b-row>
-        <b-col class="content">
+        <b-col>
             <h1>
                 <strong>
                   <span class="text-primary">{{webSiteName}}</span>
@@ -13,7 +13,7 @@
                 <video-link-viewer :videoLink="videoLink"></video-link-viewer>
                 <hr class="border border-secondary">
             </div>
-            <div class="text-center">
+            <div class="text-center mb-3">
                 <button @click="addVideo()" :disabled="!areVideosValid()" class="btn btn-primary btn-lg">Add Another Video</button>
                 <button @click="createViewLink()" :hidden="!areVideosValid()" class="btn btn-success btn-lg">Create {{webSiteName}} Link</button>
             </div>
