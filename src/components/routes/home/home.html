@@ -20,7 +20,7 @@
             <div v-if="viewLink !== ''">
                 <hr class="border border-primary">
                 <h2>Your {{webSiteName}} Link Is:</h2>
-                <div @click="selectLink()" style="word-wrap:break-word" class="p-3 bg-dark border border-primary rounded">
+                <div @click="selectLink()" style="word-wrap:break-word;cursor:pointer" class="p-3 bg-dark border border-primary rounded">
                     <h3><a :href="viewLink" target="_blank" id="viewLink">{{viewLink}}</a></h3>
                 </div>
                 <div class="text-center my-3">
