@@ -50,6 +50,7 @@ export class VideoViewComponent extends Vue {
     PlayerBus.$on('pause', () => this.videoPlayer.pause())
     PlayerBus.$on('sync', (referenceVideo: Video) => {
       referenceVideo.player.getTime().then(time => {
+        // console.debug(`${this.video.id}: ${time} - ${referenceVideo.timestamp} + ${this.video.timestamp} = ${time + referenceVideo.timestamp + this.video.timestamp}`)
         this.videoPlayer.seek(time - referenceVideo.timestamp + this.video.timestamp)
       })
     })

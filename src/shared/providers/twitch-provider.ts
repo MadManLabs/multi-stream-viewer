@@ -4,7 +4,7 @@ import { IVideoPlayer } from './video-provider'
 
 export class TwitchProvider extends AbstractProvider {
   constructor () {
-    super('http://player.twitch.tv/js/embed/v1.js', VideoProvider.twitch)
+    super('https://player.twitch.tv/js/embed/v1.js', VideoProvider.twitch)
   }
 
   acceptsHostName (url: URL): boolean {

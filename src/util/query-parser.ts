@@ -51,10 +51,18 @@ function sanitizeTimestamp (video: Video) {
   if (!video.timestamp || video.timestamp < 0) {
     video.timestamp = 0
   }
+
+  if (isFinite(video.timestamp)) {
+    video.timestamp = Number(video.timestamp)
+  } else {
+    video.timestamp = 0
+  }
 }
 
 function sanitizeMuted (video: Video) {
   if (!video.muted) {
     video.muted = false
   }
+
+  video.muted = Boolean(video.muted)
 }
