@@ -30,7 +30,7 @@ export class VideoLinkViewerComponent extends Vue {
             this.alertMsg = ''
 
             if (this.videoLink.video === null) {
-              console.debug('creating new video object')
+              // console.debug('creating new video object')
               this.videoLink.video = {
                 provider: k,
                 id: id,
@@ -38,6 +38,8 @@ export class VideoLinkViewerComponent extends Vue {
                 muted: false,
                 player: null
               }
+
+              this.scrollToBottom()
             }
           }
         }
@@ -60,5 +62,12 @@ export class VideoLinkViewerComponent extends Vue {
 
   captureTimestamp () {
     this.videoLink.video.player.getTime().then(time => this.videoLink.video.timestamp = time)
+  }
+
+  private scrollToBottom () {
+    // Scroll to bottom - we wait 50 ms to give Vue a chance to update view before scrolling
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight)
+    }, 50)
   }
 }

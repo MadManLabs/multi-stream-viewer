@@ -1,6 +1,6 @@
 <b-container class="content">
     <b-row>
-        <b-col class="content">
+        <b-col>
             <h1>
                 <strong>
                   <span class="text-primary">{{webSiteName}}</span>
@@ -11,16 +11,17 @@
             <br>
             <div v-for="videoLink in videoLinks" :key="videoLink.key">
                 <video-link-viewer :videoLink="videoLink"></video-link-viewer>
+                <button @click="removeVideoLink(videoLink)" :disabled="!canRemoveVideoLink()" class="btn btn-danger">Remove Video</button>
                 <hr class="border border-secondary">
             </div>
-            <div class="text-center">
+            <div class="text-center mb-3">
                 <button @click="addVideo()" :disabled="!areVideosValid()" class="btn btn-primary btn-lg">Add Another Video</button>
                 <button @click="createViewLink()" :hidden="!areVideosValid()" class="btn btn-success btn-lg">Create {{webSiteName}} Link</button>
             </div>
             <div v-if="viewLink !== ''">
                 <hr class="border border-primary">
                 <h2>Your {{webSiteName}} Link Is:</h2>
-                <div @click="selectLink()" style="word-wrap:break-word" class="p-3 bg-dark border border-primary rounded">
+                <div @click="selectLink()" style="word-wrap:break-word;cursor:pointer" class="p-3 bg-dark border border-primary rounded">
                     <h3><a :href="viewLink" target="_blank" id="viewLink">{{viewLink}}</a></h3>
                 </div>
                 <div class="text-center my-3">

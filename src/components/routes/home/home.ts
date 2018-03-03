@@ -37,7 +37,18 @@ export class HomeComponent extends Vue {
   }
 
   addVideo () {
-    this.videoLinks.push(CreateBlankVideoLink(this.videoLinks.length))
+    this.videoLinks.push(CreateBlankVideoLink(this.videoLinks[this.videoLinks.length - 1].key + 1))
+    this.scrollToBottom()
+  }
+
+  removeVideoLink (videoLink: VideoLink) {
+    if (this.videoLinks.length <= 1) return
+    const index = this.videoLinks.indexOf(videoLink)
+    this.videoLinks.splice(index, 1)
+  }
+
+  canRemoveVideoLink (): boolean {
+    return this.videoLinks.length > 1
   }
 
   areVideosValid (): boolean {
@@ -63,6 +74,8 @@ export class HomeComponent extends Vue {
     })
 
     this.viewLink = url
+
+    this.scrollToBottom()
   }
 
   selectLink () {
@@ -72,5 +85,12 @@ export class HomeComponent extends Vue {
   copyLink () {
     this.selectLink()
     document.execCommand('copy')
+  }
+
+  private scrollToBottom () {
+    // Scroll to bottom - we wait 50 ms to give Vue a chance to update view before scrolling
+    setTimeout(() => {
+      window.scrollTo(0, document.body.scrollHeight || document.documentElement.scrollHeight)
+    }, 50)
   }
 }

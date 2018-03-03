@@ -20,7 +20,15 @@ export function createVideoFromQuery (query: string): Video {
   sanitizeTimestamp(video)
   sanitizeMuted(video)
 
-  return video
+  // Create a clean copy of video. This gets rid of any unwanted data a user could potentially inject into the video object via rison encoding
+  const realVideo: Video = {
+    provider: video.provider,
+    id: video.id,
+    timestamp: video.timestamp,
+    muted: video.muted
+  }
+
+  return realVideo
 }
 
 function validateProvider (video: Video) {
@@ -51,10 +59,18 @@ function sanitizeTimestamp (video: Video) {
   if (!video.timestamp || video.timestamp < 0) {
     video.timestamp = 0
   }
+
+  if (isFinite(video.timestamp)) {
+    video.timestamp = Number(video.timestamp)
+  } else {
+    video.timestamp = 0
+  }
 }
 
 function sanitizeMuted (video: Video) {
   if (!video.muted) {
     video.muted = false
   }
+
+  video.muted = Boolean(video.muted)
 }
